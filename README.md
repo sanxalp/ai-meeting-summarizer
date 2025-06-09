@@ -170,12 +170,7 @@ The application uses React Router for navigation:
 
 ## Deployment
 
-This application can be deployed to:
-
-- Vercel
-- Netlify
-- Supabase Edge Functions
-- Any static hosting provider
+This application has been deployed using Vercel.
 
 Make sure to set your environment variables in your deployment platform.
 
