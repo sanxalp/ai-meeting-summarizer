@@ -17,8 +17,23 @@ export class AudioChunkingService {
 
   async load() {
     if (this.isLoaded) return;
-    await this.ffmpeg.load(); // loads from official CDN
-    this.isLoaded = true;
+
+    try {
+      // In production, we'll use the CDN
+      if (import.meta.env.PROD) {
+        await this.ffmpeg.load();
+      } else {
+        // In development, we'll use local files
+        await this.ffmpeg.load({
+          coreURL: "/ffmpeg-core.js",
+          wasmURL: "/ffmpeg-core.wasm",
+        });
+      }
+      this.isLoaded = true;
+    } catch (error) {
+      console.error("Failed to load FFmpeg:", error);
+      throw new Error("Failed to initialize audio processing");
+    }
   }
 
   async chunkAudio(
