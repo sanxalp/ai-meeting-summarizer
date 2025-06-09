@@ -178,5 +178,6 @@ Make sure to set your environment variables in your deployment platform.
 
 MIT License - see LICENSE file for details.
 
-**NOTE**
+## NOTE
+
 This app wont run on your development server unless you install the @ffmpeg/core, this repository is missing ffmpeg-core.js and ffmpeg-core.wasm which are necessary for running on the development server to make sure chunks are being sent for the transcribing. figure it out on your own, i am too tired to explain it.
