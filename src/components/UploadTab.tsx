@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import {
   Upload,
@@ -23,34 +23,68 @@ export function UploadTab() {
     "brief" | "bullet" | "action"
   >("brief");
   const [isTranscribing, setIsTranscribing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [transcriptionProgress, setTranscriptionProgress] = useState(0);
 
   const { createSummary } = useSummaries();
-  const { summarize, loading: aiLoading, error: aiError } = useAI();
-  const {
-    transcribeAudio,
-    loading: transcriptionLoading,
-    error: transcriptionError,
-  } = useTranscription();
+  const { summarize, loading: aiLoading } = useAI();
+  const { transcribeAudio, loading: transcriptionLoading } = useTranscription();
+
+  // Add progress listener
+  useEffect(() => {
+    const handleProgress = (event: CustomEvent) => {
+      setTranscriptionProgress(event.detail);
+    };
+
+    window.addEventListener(
+      "transcriptionProgress",
+      handleProgress as EventListener
+    );
+    return () => {
+      window.removeEventListener(
+        "transcriptionProgress",
+        handleProgress as EventListener
+      );
+    };
+  }, []);
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       const file = acceptedFiles[0];
       if (file) {
+        // Check file size (50MB limit)
+        if (file.size > 50 * 1024 * 1024) {
+          setError(
+            "File size exceeds 50MB limit. Please upload a smaller file."
+          );
+          return;
+        }
+
         setUploadedFile(file);
         setFileName(file.name);
         setSummary("");
+        setError(null);
+        setTranscriptionProgress(0);
 
         // Start transcription process
         setIsTranscribing(true);
         try {
-          const transcript = await transcribeAudio(file);
+          const transcript = await transcribeAudio(file, {
+            chunkDuration: 300, // 5 minutes per chunk
+          });
           if (transcript) {
             setTranscript(transcript);
           }
         } catch (error) {
           console.error("Transcription failed:", error);
+          setError(
+            error instanceof Error
+              ? error.message
+              : "Failed to transcribe audio"
+          );
         } finally {
           setIsTranscribing(false);
+          setTranscriptionProgress(0);
         }
       }
     },
@@ -61,6 +95,7 @@ export function UploadTab() {
     onDrop,
     accept: {
       "audio/*": [".mp3", ".wav", ".m4a", ".ogg"],
+      "video/*": [".mp4", ".mov", ".webm", ".mkv"],
     },
     multiple: false,
   });
@@ -68,15 +103,20 @@ export function UploadTab() {
   const generateSummary = async () => {
     if (!transcript.trim()) return;
 
+    setError(null); // Clear any previous errors
     const options: SummaryOptions = { style: summaryStyle };
-    const result = await summarize(transcript, options);
-
-    if (result) {
-      setSummary(result);
-
-      // Save to database
-      const currentFileName = fileName || "Text Input";
-      await createSummary(currentFileName, transcript, result);
+    try {
+      const result = await summarize(transcript, options);
+      if (result) {
+        setSummary(result);
+        // Save to database
+        const currentFileName = fileName || "Text Input";
+        await createSummary(currentFileName, transcript, result);
+      }
+    } catch (error) {
+      setError(
+        error instanceof Error ? error.message : "Failed to generate summary"
+      );
     }
   };
 
@@ -96,9 +136,8 @@ export function UploadTab() {
     setFileName("");
     setUploadedFile(null);
     setIsTranscribing(false);
+    setError(null);
   };
-
-  const error = transcriptionError || aiError;
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
@@ -106,7 +145,7 @@ export function UploadTab() {
       <div className="glass-card p-8">
         <h2 className="text-2xl font-bold text-white mb-6 flex items-center">
           <Upload className="w-6 h-6 mr-3 text-blue-400" />
-          Upload Meeting Audio
+          Upload Meeting File
         </h2>
 
         <div
@@ -125,8 +164,19 @@ export function UploadTab() {
               <p className="text-lg font-medium text-blue-400 mb-2">
                 Transcribing audio...
               </p>
-              <p className="text-sm text-white/60">
+              <p className="text-sm text-white/60 mb-2">
                 This may take a few moments
+              </p>
+              {transcriptionProgress > 0 && (
+                <div className="w-full bg-white/10 rounded-full h-2 mb-2">
+                  <div
+                    className="bg-blue-400 h-2 rounded-full transition-all duration-300"
+                    style={{ width: `${transcriptionProgress}%` }}
+                  ></div>
+                </div>
+              )}
+              <p className="text-sm text-white/60">
+                {transcriptionProgress.toFixed(1)}% complete
               </p>
             </div>
           ) : uploadedFile ? (
@@ -143,10 +193,10 @@ export function UploadTab() {
               <p className="text-lg font-medium text-white mb-2">
                 {isDragActive
                   ? "Drop your audio file here"
-                  : "Drag & drop your audio file here"}
+                  : "Drag & drop your meeting file here"}
               </p>
               <p className="text-sm text-white/60">
-                Supports MP3, WAV, M4A files up to 50MB
+                Supports audio and video files up to 50MB
               </p>
             </div>
           )}
