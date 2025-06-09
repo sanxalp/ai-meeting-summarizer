@@ -173,4 +173,4 @@ Make sure to set your environment variables in your deployment platform.
 
 ## License
 
-MIT License - see LICENSE file for details.
+MIT License
