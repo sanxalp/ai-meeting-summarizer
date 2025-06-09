@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { User, Mail, Save, Moon, Sun } from "lucide-react";
+import { User, Cat, Mail, Save, Moon, Sun } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
 import { supabase } from "../lib/supabase";
 
@@ -35,7 +35,7 @@ export function ProfilePage() {
       <div className="glass-card p-8">
         <div className="flex items-center mb-8">
           <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mr-4">
-            <User className="w-8 h-8 text-white" />
+            <Cat className="w-8 h-8 text-white" />
           </div>
           <div>
             <h1 className="text-3xl font-bold text-white">Profile Settings</h1>

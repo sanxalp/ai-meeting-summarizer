@@ -1,5 +1,14 @@
 import React from "react";
-import { Bot, Shield, Zap, Users, Github, Mail, Heart } from "lucide-react";
+import {
+  AudioLines,
+  Bot,
+  Shield,
+  Zap,
+  Users,
+  Github,
+  Mail,
+  Heart,
+} from "lucide-react";
 
 export function AboutPage() {
   return (
@@ -7,7 +16,7 @@ export function AboutPage() {
       {/* Hero Section */}
       <div className="glass-card p-8 text-center">
         <div className="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-          <Bot className="w-10 h-10 text-white" />
+          <AudioLines className="w-10 h-10 text-white" />
         </div>
         <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
           Syntheia - An AI-powered meeting summarizer
