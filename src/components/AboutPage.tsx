@@ -170,10 +170,15 @@ export function AboutPage() {
         <div className="grid md:grid-cols-2 gap-6">
           <div className="flex items-center p-4 glass-card">
             <Mail className="w-6 h-6 text-blue-400 mr-3" />
-            <div>
-              <h3 className="font-semibold text-white">Email Support</h3>
-              <p className="text-white/80">sankalp2924@gmail.com</p>
-            </div>
+            <a
+              href="mailto:sankalp2924@gmail.com"
+              className="block hover:bg-white/5 p-2 rounded-lg transition"
+            >
+              <div>
+                <h3 className="font-semibold text-white">Email Support</h3>
+                <p className="text-white/80">sankalp2924@gmail.com</p>
+              </div>
+            </a>
           </div>
           <div className="flex items-center p-4 glass-card">
             <Github className="w-6 h-6 text-white/80 mr-3" />
@@ -199,7 +204,7 @@ export function AboutPage() {
           productive meetings
         </p>
         <p className="text-sm text-white/60 mt-2">
-          © 2024 AI Meeting Summarizer. All rights reserved.
+          © 2025 syntheia. All rights reserved.
         </p>
       </div>
     </div>

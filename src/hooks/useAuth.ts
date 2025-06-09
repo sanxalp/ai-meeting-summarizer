@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { User } from '@supabase/supabase-js';
-import { supabase } from '../lib/supabase';
+import { useState, useEffect } from "react";
+import { User } from "@supabase/supabase-js";
+import { supabase } from "../lib/supabase";
 
 export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
@@ -14,12 +14,12 @@ export function useAuth() {
     });
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setUser(session?.user ?? null);
-        setLoading(false);
-      }
-    );
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
     return () => subscription.unsubscribe();
   }, []);
@@ -30,14 +30,14 @@ export function useAuth() {
       password,
       options: {
         emailRedirectTo: undefined, // Disable email confirmation
-      }
+      },
     });
-    
+
     // With email confirmation disabled, the user should be immediately available
     if (data.user && !error) {
       setUser(data.user);
     }
-    
+
     return { error };
   };
 
