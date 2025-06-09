@@ -4,16 +4,22 @@
 
 @layer base {
   html {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: "Inter", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    @apply bg-gray-800;
   }
 
   body {
-    @apply text-gray-900 antialiased;
+    @apply text-gray-900 antialiased bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-semibold tracking-tight;
   }
 
@@ -31,5 +37,66 @@
 
   p {
     @apply text-base leading-relaxed;
+  }
+
+  /* Fix for blurry icons */
+  svg {
+    @apply transform-gpu;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  select {
+    @apply appearance-none;
+  }
+
+  select option {
+    @apply bg-gray-900 text-white;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/10 border border-white/20 rounded-2xl shadow-xl;
+  }
+
+  .glass-button {
+    @apply bg-white/10 border border-white/20 text-white px-6 py-3 rounded-xl font-medium 
+           hover:bg-white/20 transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98]
+           focus:outline-none focus:ring-2 focus:ring-white/30;
+  }
+
+  .glass-input {
+    @apply bg-white/5 border border-white/10 text-white rounded-xl px-4 py-3
+           focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent
+           placeholder:text-white/50;
+  }
+
+  .glass-select {
+    @apply bg-white/5 border border-white/10 text-white rounded-xl px-4 py-3
+           focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-transparent;
+  }
+
+  .glass-nav {
+    @apply bg-white/5 backdrop-blur-md border-b border-white/10;
+  }
+
+  .glass-nav-link {
+    @apply text-white/80 hover:text-white px-4 py-2 rounded-lg font-medium transition-all
+           hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20;
+  }
+
+  .glass-nav-link-active {
+    @apply text-white bg-white/10 shadow-lg;
+  }
+
+  /* Icon-specific styles */
+  .icon-wrapper {
+    @apply relative;
+  }
+
+  .icon-wrapper svg {
+    @apply relative z-10;
   }
 }

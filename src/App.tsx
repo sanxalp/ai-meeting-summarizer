@@ -1,14 +1,14 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import { useAuth } from './hooks/useAuth';
-import { AuthForm } from './components/AuthForm';
-import { Layout } from './components/Layout';
-import { UploadTab } from './components/UploadTab';
-import { HistoryTab } from './components/HistoryTab';
-import { ProfilePage } from './components/ProfilePage';
-import { SettingsPage } from './components/SettingsPage';
-import { AboutPage } from './components/AboutPage';
-import { NotFoundPage } from './components/NotFoundPage';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { useAuth } from "./hooks/useAuth";
+import { AuthForm } from "./components/AuthForm";
+import { Layout } from "./components/Layout";
+import { UploadTab } from "./components/UploadTab";
+import { HistoryTab } from "./components/HistoryTab";
+import { ProfilePage } from "./components/ProfilePage";
+import { SettingsPage } from "./components/SettingsPage";
+import { AboutPage } from "./components/AboutPage";
+import { NotFoundPage } from "./components/NotFoundPage";
 
 function App() {
   const { user, loading } = useAuth();

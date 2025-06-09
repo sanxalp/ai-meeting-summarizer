@@ -32,27 +32,32 @@ A beautiful, production-ready web application that allows users to upload meetin
 ## Pages & Features
 
 ### 🏠 Dashboard (/)
+
 - Upload audio files or paste transcripts
 - Generate AI summaries
 - Export summaries
 
 ### 📚 History (/history)
+
 - View all previous summaries
 - Delete summaries
 - Export individual summaries
 
 ### 👤 Profile (/profile)
+
 - View and edit user information
 - Update display name
 - Dark mode toggle
 
 ### ⚙️ Settings (/settings)
+
 - Summary style preferences (Brief, Bullet Points, Action Items)
 - Default input method (Audio/Text)
 - Notification settings
 - Auto-save preferences
 
 ### ℹ️ About (/about)
+
 - App overview and features
 - How it works
 - Technology stack
@@ -60,6 +65,7 @@ A beautiful, production-ready web application that allows users to upload meetin
 - Contact information
 
 ### 🚫 404 Page
+
 - Friendly error page
 - Navigation back to main sections
 
@@ -126,6 +132,7 @@ npm run dev
 The application uses OpenRouter for AI summarization, which provides access to various AI models. The default configuration uses Claude 3 Haiku for optimal performance and cost-effectiveness.
 
 To use a different AI provider:
+
 1. Update the environment variables with your preferred API key
 2. Modify the AI service configuration in `src/services/aiService.ts`
 
@@ -164,6 +171,7 @@ The application uses React Router for navigation:
 ## Deployment
 
 This application can be deployed to:
+
 - Vercel
 - Netlify
 - Supabase Edge Functions
@@ -173,4 +181,4 @@ Make sure to set your environment variables in your deployment platform.
 
 ## License
 
-MIT License
+MIT License - see LICENSE file for details.
