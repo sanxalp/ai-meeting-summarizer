@@ -103,7 +103,7 @@ export function Header() {
                   <div className="icon-wrapper">
                     <LogOut className="w-4 h-2 mr-2" />
                   </div>
-                  Sign Out
+                  <span className="text-sm">Sign Out</span>
                 </button>
               </>
             ) : (
@@ -128,7 +128,7 @@ export function Header() {
               <div className="icon-wrapper">
                 <Upload className="w-4 h-4 mr-1" />
               </div>
-              Upload
+              <span className="text-sm">Upload</span>
             </Link>
             <Link
               to="/history"
