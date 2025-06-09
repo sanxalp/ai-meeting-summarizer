@@ -101,7 +101,7 @@ export function Header() {
                 </Link>
                 <button onClick={handleSignOut} className="glass-button">
                   <div className="icon-wrapper">
-                    <LogOut className="w-4 h-4 mr-2" />
+                    <LogOut className="w-4 h-2 mr-2" />
                   </div>
                   Sign Out
                 </button>
