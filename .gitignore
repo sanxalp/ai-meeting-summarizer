@@ -25,3 +25,8 @@ dist-ssr
 .env
 
 test-comps
+!scripts/copy-ffmpeg.js
+
+# FFmpeg core files
+public/ffmpeg-core.js
+public/ffmpeg-core.wasm
