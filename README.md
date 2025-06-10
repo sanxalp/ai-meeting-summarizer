@@ -7,6 +7,7 @@ A beautiful, production-ready web application that allows users to upload meetin
 - 🔐 **User Authentication** - Secure email/password authentication with Supabase Auth (no email confirmation required)
 - 📁 **File Upload** - Drag & drop interface for audio files (MP3, WAV, M4A)
 - 🎙️ **Audio Transcription** - Powered by Deepgram for accurate speech-to-text
+- 📦 **Smart Chunking** - Automatic audio file chunking for efficient processing of long recordings
 - 📝 **Text Input** - Paste meeting transcripts directly
 - 🤖 **AI Summarization** - Generate intelligent meeting summaries using OpenRouter
 - 📚 **History Dashboard** - View and manage all your previous summaries
@@ -24,6 +25,7 @@ A beautiful, production-ready web application that allows users to upload meetin
 - **Backend**: Supabase (Auth, Database, Storage)
 - **Icons**: Lucide React
 - **File Upload**: React Dropzone
+- **Audio Processing**: FFmpeg for audio chunking
 - **Routing**: React Router DOM
 - **Font**: Inter (Google Fonts)
 - **AI**: OpenRouter API
@@ -180,4 +182,16 @@ MIT License - see LICENSE file for details.
 
 ## NOTE
 
-This app wont run on your development server unless you install the @ffmpeg/core, this repository is missing ffmpeg-core.js and ffmpeg-core.wasm which are necessary for running on the development server to make sure chunks are being sent for the transcribing. figure it out on your own, i am too tired to explain it.
+This app requires FFmpeg for audio chunking functionality. You'll need to:
+
+1. Install @ffmpeg/core package:
+
+```bash
+npm install @ffmpeg/core
+```
+
+2. Copy the following files from node_modules/@ffmpeg/core/dist to your public directory:
+   - ffmpeg-core.js
+   - ffmpeg-core.wasm
+
+These files are necessary for the audio chunking feature to work properly in development. The chunking system automatically splits long audio files into smaller segments (default 5 minutes) for efficient processing and transcription.

@@ -136,8 +136,8 @@ export function AboutPage() {
             <ul className="space-y-2 text-white/80">
               <li>• Supabase for authentication & database</li>
               <li>• Row Level Security (RLS)</li>
-              <li>• Claude AI for summarization</li>
-              <li>• Whisper.js for audio transcription</li>
+              <li>• OpenRouter for summarization</li>
+              <li>• Deepgram for audio transcription</li>
               <li>• Real-time data synchronization</li>
             </ul>
           </div>
