@@ -5,7 +5,7 @@ A beautiful, production-ready web application that allows users to upload meetin
 ## Features
 
 - 🔐 **User Authentication** - Secure email/password authentication with Supabase Auth (no email confirmation required)
-- 📁 **File Upload** - Drag & drop interface for audio files (MP3, WAV, M4A)
+- 📁 **File Upload** - Drag & drop interface for meeting files (MP3, WAV, M4A, MP4)
 - 🎙️ **Audio Transcription** - Powered by Deepgram for accurate speech-to-text
 - 📦 **Smart Chunking** - Automatic audio file chunking for efficient processing of long recordings
 - 📝 **Text Input** - Paste meeting transcripts directly
